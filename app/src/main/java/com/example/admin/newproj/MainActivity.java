@@ -27,6 +27,7 @@ import java.net.URI;
 public class MainActivity extends AppCompatActivity {
     Button browse;
     Button call;
+    Button move;
     Button capture;
     LinearLayout mylayout;
     ImageView myimageview;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         capture=(Button)findViewById(R.id.capture);
         myimageview=(ImageView) findViewById(R.id.imageView);
         mylayout=(LinearLayout)findViewById(R.id.content_main);
+        move= (Button) findViewById(R.id.move);
 
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.wave_scale);
         animation.setDuration(800);
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent,RESULT_LOAD);
             }
         });
+
 
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent callIntent= new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + friendphone));
                 startActivity(callIntent);
+            }
+        });
+        move.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myintent= new Intent(MainActivity.this,dashboard.class);
+                startActivity(myintent);
             }
         });
 

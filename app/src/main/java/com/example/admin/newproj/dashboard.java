@@ -15,6 +15,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.example.admin.newproj.R.id.edt_email;
+import static com.example.admin.newproj.R.id.edt_fname;
+import static com.example.admin.newproj.R.id.edt_lname;
+import static com.example.admin.newproj.R.id.edt_password;
+import static com.example.admin.newproj.R.id.edt_phone;
+
 public class dashboard extends AppCompatActivity {
     TextView mytextview;
     LinearLayout mylayout;
@@ -25,6 +31,7 @@ public class dashboard extends AppCompatActivity {
     EditText password;
     RadioButton male;
     RadioButton female;
+    String edit_fname,edit_lname,edit_email,edit_phone,edit_password;
     Button login;
     FloatingActionButton save;
     SQLiteDatabase mydb;
@@ -36,71 +43,76 @@ public class dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         this.getSupportActionBar().hide();
 
-        Animation animation=AnimationUtils.loadAnimation(this,R.anim.wave_scale);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.wave_scale);
         animation.setDuration(600);
         mylayout.startAnimation(animation);
 
-        mytextview=(TextView) findViewById(R.id.textView);
-        mylayout=(LinearLayout)findViewById(R.id.activity_dashboard);
-        firstname=(EditText)findViewById(R.id.edt_fname);
-        lastname=(EditText)findViewById(R.id.edt_lname);
-        email=(EditText)findViewById(R.id.edt_email);
-        phone=(EditText)findViewById(R.id.edt_phone);
-        password=(EditText)findViewById(R.id.edt_password);
-        male=(RadioButton) findViewById(R.id.radio_male);
-        female=(RadioButton) findViewById(R.id.radio_female);
-        login=(Button) findViewById(R.id.btn_continue);
-        save=(FloatingActionButton)findViewById(R.id.float_save);
+        mytextview = (TextView) findViewById(R.id.textView);
+        mylayout = (LinearLayout) findViewById(R.id.activity_dashboard);
+        firstname = (EditText) findViewById(edt_fname);
+        lastname = (EditText) findViewById(edt_lname);
+        email = (EditText) findViewById(edt_email);
+        phone = (EditText) findViewById(edt_phone);
+        password = (EditText) findViewById(edt_password);
+        male = (RadioButton) findViewById(R.id.radio_male);
+        female = (RadioButton) findViewById(R.id.radio_female);
+        login = (Button) findViewById(R.id.btn_continue);
+        save = (FloatingActionButton) findViewById(R.id.float_save);
 
-        Animation animation1=AnimationUtils.loadAnimation(this,R.anim.wave_scale);
+        Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.wave_scale);
         animation1.setDuration(600);
         mytextview.startAnimation(animation1);
-
 
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edt_fname = firstname.getText().toString();
-                edt_lname = lastname.getText().toString();
-                edt_email = email.getText().toString();
-                edt_phone = phone.getText().toString();
-                edt_password = password.getText().toString();
 
-                Toast.makeText(getApplicationContext(),"This is "+ edt_fname+ " "+ edt_lname
-                        + toString(),Toast.LENGTH_LONG).show();
+
+              edit_fname=firstname.getText().toString();
+               edit_lname=lastname.getText().toString();
+                edit_email=email.getText().toString();
+                edit_phone = phone.getText().toString();
+                edit_password = password.getText().toString();
+
+
+
+                Toast.makeText(getApplicationContext(), "This is " + edt_fname + " " + edt_lname
+                        + toString(), Toast.LENGTH_LONG).show();
                 firstname.setText("");
                 lastname.setText("");
                 email.setText("");
                 phone.setText("");
                 password.setText("");
-                savedata(edt_fname,edt_lname,edt_email,edt_phone,edt_password);
+                savedata(edit_fname, edit_lname, edit_email, edit_phone, edit_password);
             }
         });
 
     }
 
-    public  void savedata(String edt_fname, String edt_lname, String edt_email, String edt_phone,
-    String edt_password){
+
+
+    public  void savedata(String edit_fname, String edit_lname, String edit_email, String edit_phone,
+    String edit_password){
         try{
            mydb= openOrCreateDatabase("usersdb", Context.MODE_PRIVATE,null
            ) ;
             mydb.execSQL("Create table if not exists "+
             "tbl_users " +
-                "(edt_fname varchar, " +
-                    "edt_lname varchar, "+
-                    "edt_email varchar, "+
-                    "edt_phone vachar, "+
-                    "edt_password varchar);"
+                "(edit_fname varchar, " +
+                    "edit_lname varchar, "+
+                    "edit_email varchar, "+
+                    "edit_phone vachar, "+
+                    "edit_password varchar);"
             );
 
             mydb.execSQL("Insert into tbl_users "+
                     "values(" +
-                    "'" +  edt_fname +"'," +
-                    "'" + edt_lname +"'," +
-                    "'" + edt_email +"'," +
-                    "'" + edt_phone + "'," +
-                    "'" + edt_password + "');");
+                    "'" +  edit_fname +"'," +
+                    "'" + edit_lname +"'," +
+                    "'" + edit_email +"'," +
+                    "'" + edit_phone + "'," +
+                    "'" + edit_password + "');");
         }
         catch (Exception e){
 
